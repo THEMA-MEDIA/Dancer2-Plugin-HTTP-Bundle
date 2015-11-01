@@ -4,9 +4,15 @@ use 5.006;
 use strict;
 use warnings;
 
+use Dancer2::Plugin::HTTP::Caching;
+use Dancer2::Plugin::HTTP::ContentNegotiation;
+use Dancer2::Plugin::HTTP::ConditionalRequest;
+use Dancer2::Plugin::HTTP::Auth::Handler;
+use Dancer2::Plugin::HTTP::Cache 'CHI';
+
 =head1 NAME
 
-Dancer2::Plugin::HTTP - The great new Dancer2::Plugin::HTTP!
+Dancer2::Plugin::HTTP - The missing HTTP bits of Dancer2
 
 =head1 VERSION
 
@@ -19,35 +25,75 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+There are a few Dancer2 Plugins to help building REST api's. This wrapper helps
+loading them all at once, in the right order and will demonstrate the combined
+use of them.
 
-Perhaps a little code snippet.
+    use Dancer2::Plugin::HTTP
+    
+    get '/secrets/:id' => http_handler_can('find_something') => sub {
+        
+        # what content-type does the client want
+        http_choose_accept (
+            
+            [ 'application/json', 'application/xml' ] => sub {
+                    
+                # find the resource
+                
+                my $secret_object =
+                    http_handler->find_something(param->{id});
+                
+                unless ( $secret_object ) {
+                    status (404); # Not Found
+                    return;
+                }
+                
+                # set caching information
+                
+                http_cache_max_age 3600;
+                http_cache_private;
+                
+                # make the request conditional
+                # maybe we do not need to serialize
+                
+                http_conditional (
+                    etag            => $secret_object->etag,
+                    last_modified   => $secret_object->date_last_modified
+                ) => sub {
+                    for (http_accept) {
+                        when ('application/json') {
+                            return to_json ( $secret_object )
+                        }
+                        when ('application/xml') {
+                            return to_xml ( $secret_object )
+                        }
+                    }
+                }
+                
+            },
+            
+            [ 'image/png', 'image/jpeg' ] => sub {
+                ...
+            },
+            
+            { default => undef }
+        )
+        
+    };
 
-    use Dancer2::Plugin::HTTP;
 
-    my $foo = Dancer2::Plugin::HTTP->new();
-    ...
+=head1 HTTP... and the RFC's
 
-=head1 EXPORT
+=item RFC 7234 - Hypertext Transfer Protocol (HTTP/1.1): Caching
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+The Hypertext Transfer Protocol (HTTP) is a stateless application-
+level protocol for distributed, collaborative, hypertext information
+systems.  This document defines HTTP caches and the associated header
+fields that control cache behavior or indicate cacheable response
+messages.
 
-=head1 SUBROUTINES/METHODS
+L<Dancer2::Plugin::HTTP::Caching>
 
-=head2 function1
-
-=cut
-
-sub function1 {
-}
-
-=head2 function2
-
-=cut
-
-sub function2 {
-}
 
 =head1 AUTHOR
 
