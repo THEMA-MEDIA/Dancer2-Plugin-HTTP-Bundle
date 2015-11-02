@@ -9,6 +9,23 @@ use of them.
     use Dancer2::Plugin::HTTP
     
     get '/secrets/:id' => http_handler_can('find_something') => sub {
+        my $secret_object = http_handler->find_something(param->{id})
+            or return sub { status (404 ) };
+        http_conditional (
+            etag            => $secret_object->etag,
+            last_modified   => $secret_object->date_last_modified
+        ) =>sub { http_choose_accept (
+            'application/json' => sub { to_json $secret_object },
+            'application/xml'  => sub { to_xml  $secret_object },
+            { default => undef }
+        ) }
+    };
+
+Or a little more verbose
+
+    use Dancer2::Plugin::HTTP
+    
+    get '/secrets/:id' => http_handler_can('find_something') => sub {
         
         # what content-type does the client want
         http_choose_accept (
