@@ -31,8 +31,8 @@ use of them.
 
     use Dancer2::Plugin::HTTP
     
-    get '/secrets/:id' => http_handler_can('find_something') => sub {
-        my $secret_object = http_handler->find_something(param->{id})
+    get '/secrets/:id' => http_auth_handler_can('find_something') => sub {
+        my $secret_object = http_auth_handler->find_something(param->{id})
             or return sub { status (404 ) };
         http_conditional (
             etag            => $secret_object->etag,
@@ -48,7 +48,7 @@ Or a little more verbose
 
     use Dancer2::Plugin::HTTP
     
-    get '/secrets/:id' => http_handler_can('find_something') => sub {
+    get '/secrets/:id' => http_auth_handler_can('find_something') => sub {
         
         # what content-type does the client want
         http_choose_accept (
@@ -58,7 +58,7 @@ Or a little more verbose
                 # find the resource
                 
                 my $secret_object =
-                    http_handler->find_something(param->{id});
+                    http_auth_handler->find_something(param->{id});
                 
                 unless ( $secret_object ) {
                     status (404); # Not Found
