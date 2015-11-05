@@ -8,8 +8,8 @@ use of them.
 
     use Dancer2::Plugin::HTTP
     
-    get '/secrets/:id' => http_handler_can('find_something') => sub {
-        my $secret_object = http_handler->find_something(param->{id})
+    get '/secrets/:id' => http_auth_handler_can('find_something') => sub {
+        my $secret_object = http_auth_handler->find_something(param->{id})
             or return sub { status (404 ) };
         http_conditional (
             etag            => $secret_object->etag,
