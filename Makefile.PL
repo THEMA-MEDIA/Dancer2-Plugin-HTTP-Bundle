@@ -18,8 +18,9 @@ WriteMakefile(
         'Test::More' => 0,
     },
     PREREQ_PM => {
-        #'ABC'              => 1.6,
-        #'Foo::Bar::Module' => 5.0401,
+        'Dancer2::Plugin::HTTP::Caching'            => 0,
+        'Dancer2::Plugin::HTTP::ConditionalRequest' => 0,
+        'Dancer2::Plugin::HTTP::ContentNegotiation' => 0,
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'Dancer2-Plugin-HTTP-*' },

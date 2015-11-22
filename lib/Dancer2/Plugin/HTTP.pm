@@ -7,8 +7,8 @@ use warnings;
 use Dancer2::Plugin::HTTP::Caching;
 use Dancer2::Plugin::HTTP::ContentNegotiation;
 use Dancer2::Plugin::HTTP::ConditionalRequest;
-use Dancer2::Plugin::HTTP::Auth::Handler;
-use Dancer2::Plugin::HTTP::Cache 'CHI';
+# use Dancer2::Plugin::HTTP::Auth::Handler;
+# use Dancer2::Plugin::HTTP::Cache 'CHI';
 
 =head1 NAME
 
