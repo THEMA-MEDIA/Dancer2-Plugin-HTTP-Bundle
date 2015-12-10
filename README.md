@@ -1,4 +1,4 @@
-# Dancer2-Plugin-HTTP
+# Dancer2-Plugin-HTTP-Bundle
 The missing bits in Dancer2 to make a proper REST API
 
 # SYNOPSIS
@@ -6,7 +6,7 @@ There are a few Dancer2 Plugins to help building REST api's. This wrapper helps
 loading them all at once, in the right order and will demonstrate the combined
 use of them.
 
-    use Dancer2::Plugin::HTTP
+    use Dancer2::Plugin::HTTP::Bundle
     
     get '/secrets/:id' => http_auth_handler_can('find_something') => sub {
         my $secret_object = http_auth_handler->find_something(param->{id})
@@ -23,7 +23,7 @@ use of them.
 
 Or a little more verbose
 
-    use Dancer2::Plugin::HTTP
+    use Dancer2::Plugin::HTTP::Bundle
     
     get '/secrets/:id' => http_handler_can('find_something') => sub {
         
@@ -77,14 +77,3 @@ Or a little more verbose
 
 
 # head1 HTTP... and the RFC's
-
-## RFC 7234 - Hypertext Transfer Protocol (HTTP/1.1): Caching
-
-The Hypertext Transfer Protocol (HTTP) is a stateless application-
-level protocol for distributed, collaborative, hypertext information
-systems.  This document defines HTTP caches and the associated header
-fields that control cache behavior or indicate cacheable response
-messages.
-
-_Dancer2::Plugin::HTTP::Caching_
-

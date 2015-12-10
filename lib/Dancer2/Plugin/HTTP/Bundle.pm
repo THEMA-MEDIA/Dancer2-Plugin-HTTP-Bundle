@@ -1,26 +1,38 @@
-package Dancer2::Plugin::HTTP;
+package Dancer2::Plugin::HTTP::Bundle;
 
 use 5.006;
 use strict;
 use warnings;
 
-use Dancer2::Plugin::HTTP::Caching;
-use Dancer2::Plugin::HTTP::ContentNegotiation;
-use Dancer2::Plugin::HTTP::ConditionalRequest;
-# use Dancer2::Plugin::HTTP::Auth::Handler;
-# use Dancer2::Plugin::HTTP::Cache 'CHI';
+use Import::Into;
+
+my @sub_modules = qw(
+    Dancer2::Plugin::HTTP::Caching
+    Dancer2::Plugin::HTTP::ContentNegotiation
+    Dancer2::Plugin::HTTP::ConditionalRequest
+);
+#   Dancer2::Plugin::HTTP::Auth::Extensible
+#   Dancer2::Plugin::HTTP::Auth::Handler;
+#   Dancer2::Plugin::HTTP::Cache 'CHI';
+
+sub import {
+    my $caller = caller;
+    $_->import::into( $caller )
+        for @sub_modules;
+}
+
 
 =head1 NAME
 
-Dancer2::Plugin::HTTP - The missing HTTP bits of Dancer2
+Dancer2::Plugin::HTTP::Bundle - The missing HTTP bits of Dancer2 Bundled
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 =head1 SYNOPSIS
@@ -29,7 +41,7 @@ There are a few Dancer2 Plugins to help building REST api's. This wrapper helps
 loading them all at once, in the right order and will demonstrate the combined
 use of them.
 
-    use Dancer2::Plugin::HTTP
+    use Dancer2::Plugin::HTTP::Bundle
     
     get '/secrets/:id' => http_auth_handler_can('find_something') => sub {
         my $secret_object = http_auth_handler->find_something(param->{id})
@@ -46,7 +58,7 @@ use of them.
 
 Or a little more verbose
 
-    use Dancer2::Plugin::HTTP
+    use Dancer2::Plugin::HTTP:::Bundle
     
     get '/secrets/:id' => http_auth_handler_can('find_something') => sub {
         
@@ -137,19 +149,19 @@ You can also look for information at:
 
 =item * RT: CPAN's request tracker (report bugs here)
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dancer2-Plugin-HTTP>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dancer2-Plugin-HTTP-Bundle>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
-L<http://annocpan.org/dist/Dancer2-Plugin-HTTP>
+L<http://annocpan.org/dist/Dancer2-Plugin-HTTP-Bundle>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/Dancer2-Plugin-HTTP>
+L<http://cpanratings.perl.org/d/Dancer2-Plugin-HTTP-Bundle>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/Dancer2-Plugin-HTTP/>
+L<http://search.cpan.org/dist/Dancer2-Plugin-HTTP-Bundle/>
 
 =back
 
@@ -200,4 +212,4 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =cut
 
-1; # End of Dancer2::Plugin::HTTP
+1; # End of Dancer2::Plugin::HTTP::Bundle

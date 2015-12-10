@@ -1,4 +1,4 @@
-Dancer2-Plugin-HTTP
+Dancer2-Plugin-HTTP-Bundle
 
 The README is used to introduce the module and provide instructions on
 how to install the module, any machine dependencies it may have (for
@@ -26,21 +26,21 @@ SUPPORT AND DOCUMENTATION
 After installing, you can find documentation for this module with the
 perldoc command.
 
-    perldoc Dancer2::Plugin::HTTP
+    perldoc Dancer2::Plugin::HTTP::Bundle
 
 You can also look for information at:
 
     RT, CPAN's request tracker (report bugs here)
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dancer2-Plugin-HTTP
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Dancer2-Plugin-HTTP-Bundle
 
     AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/Dancer2-Plugin-HTTP
+        http://annocpan.org/dist/Dancer2-Plugin-HTTP-Bundle
 
     CPAN Ratings
-        http://cpanratings.perl.org/d/Dancer2-Plugin-HTTP
+        http://cpanratings.perl.org/d/Dancer2-Plugin-HTTP-Bundle
 
     Search CPAN
-        http://search.cpan.org/dist/Dancer2-Plugin-HTTP/
+        http://search.cpan.org/dist/Dancer2-Plugin-HTTP-Bundle/
 
 
 LICENSE AND COPYRIGHT

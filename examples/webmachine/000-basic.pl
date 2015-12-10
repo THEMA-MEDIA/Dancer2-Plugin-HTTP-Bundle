@@ -1,5 +1,4 @@
 use Dancer2;
-use lib '../../lib';
 use Dancer2::Plugin::HTTP::ContentNegotiation;
 
 =pod

@@ -7,7 +7,7 @@ use Test::More;
 plan tests => 1;
 
 BEGIN {
-    use_ok( 'Dancer2::Plugin::HTTP' ) || print "Bail out!\n";
+    use_ok( 'Dancer2::Plugin::HTTP::Bundle' ) || print "Bail out!\n";
 }
 
-diag( "Testing Dancer2::Plugin::HTTP $Dancer2::Plugin::HTTP::VERSION, Perl $], $^X" );
+diag( "Testing Dancer2::Plugin::HTTP::Bundle $Dancer2::Plugin::HTTP::Bundle::VERSION, Perl $], $^X" );
